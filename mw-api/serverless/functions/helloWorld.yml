@@ -1,0 +1,23 @@
+helloWorldGet:
+  handler: src/functions/helloWorld/post/handler
+  description: GET Hello world!
+  memorySize: 1024
+  role: ${param:lambdaDefaultRole}
+  events:
+    - http:
+        path: /webhooks/hello
+        method: GET
+        aliasStage:
+          cacheTtlInSeconds: 0
+
+helloWorldPost:
+  handler: src/functions/helloWorld/post/handler
+  description: POST Hello world!
+  memorySize: 1024
+  role: ${param:lambdaDefaultRole}
+  events:
+    - http:
+        path: /webhooks/hello
+        method: POST
+        aliasStage:
+          cacheTtlInSeconds: 0

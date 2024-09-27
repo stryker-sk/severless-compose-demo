@@ -1,0 +1,15 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "Serverless compose API service demo",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.115",
+    "axios": "^1.7.7",
+    "redis": "^4.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.2"
+  }
+}

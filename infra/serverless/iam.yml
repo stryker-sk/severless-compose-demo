@@ -1,0 +1,37 @@
+Resources:
+  LambdaDefaultRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /serverless/
+      RoleName: lambdaDefaultRole-${self:provider.stage}-${self:provider.region}
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: lambdaDefaultPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: !Sub arn:aws:logs:${aws:region}:${aws:accountId}:log-group:/aws/lambda/*
+              - Effect: Allow
+                Action:
+                  - lambda:InvokeFunction
+                  - lambda:InvokeAsync
+                Resource: !Sub arn:aws:lambda:${aws:region}:${aws:accountId}:function:*
+
+Outputs:
+  lambdaDefaultRole:
+    Description: 'The default role to apply that includes logging and lambda invoking'
+    Value: !GetAtt LambdaDefaultRole.Arn
+    Export:
+      Name: !Sub ${AWS::StackName}-lambdaDefaultRole

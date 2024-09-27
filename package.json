@@ -1,0 +1,13 @@
+{
+  "name": "serverless-compose-demo",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "package:dev": "serverless package --stage dev",
+    "package:dev:debug": "serverless package --stage dev --debug"
+  },
+  "dependencies": {
+    "serverless": "^4.4.3"
+  }
+}

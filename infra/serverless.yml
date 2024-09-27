@@ -1,0 +1,33 @@
+service: infra
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  tags:
+    apiVersion: ${self:custom.apiVersion}
+    releaseVersion: ${self:custom.releaseVersion}
+    service: ${self:service}
+  stackTags:
+    apiVersion: ${self:custom.apiVersion}
+    releaseVersion: ${self:custom.releaseVersion}
+    service: ${self:service}
+
+custom:
+  alias: ${param:alias,self:provider.stage}
+  apiVersion: ${param:apiVersion,'v2'}
+  environment: ${param:environment,'dev'}
+  releaseVersion: ${param:releaseVersion,self:provider.stage}
+  displayPrefix: ${self:service}-${self:provider.stage}
+  stackName: ${self:service}-${self:provider.stage}
+  rolePath: arn:aws:iam:${aws:accountId}:role/serverless
+  rolePostfix: ${self:provider.stage}-${self:provider.region}
+
+resources:
+  - ${file(serverless/apiGateway.yml)}
+  - ${file(serverless/iam.yml)}
+
+  - Outputs:
+      infraStackName:
+        Value: ${self:custom.stackName}

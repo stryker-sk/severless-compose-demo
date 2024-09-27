@@ -1,0 +1,27 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "src",
+    "module": "commonjs",
+    "target": "es6",
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "types": [
+      "jest",
+      "node"
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

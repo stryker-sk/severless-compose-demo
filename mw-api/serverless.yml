@@ -1,0 +1,31 @@
+service: mw-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  stage: ${opt:stage, 'dev'}
+  region: us-east-1
+  logs:
+    lambda:
+      logFormat: JSON
+      applicationLogLevel: INFO
+      systemLogLevel: INFO
+  logRetentionInDays: 7
+  layers:
+    - !Ref ApiNodeModulesLambdaLayer
+  apiGateway:
+    restApiId: ${param:restApiId}
+    restApiRootResourceId: ${param:restApiRootResourceId}
+
+layers:
+  ApiNodeModules:
+    path: mw-api/node_modules
+    name: ${self:service}-node_modules
+    compatibleRuntimes:
+      - nodejs20.x
+    package:
+      patterns:
+        - 'node_modules/**'
+
+functions:
+  - ${file(serverless/functions/helloWorld.yml)}

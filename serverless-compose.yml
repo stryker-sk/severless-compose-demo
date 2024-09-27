@@ -1,0 +1,24 @@
+stages:
+  default:
+    params:
+      environment: 'dev'
+      apiVersion: 'v1'
+      releaseVersion: '0.1.0'
+
+  dev:
+    params:
+      environment: 'dev'
+
+services:
+  infra:
+    path: infra
+
+  mw-api:
+    path: mw-api
+    dependsOn:
+      - infra
+    params:
+      infraStackName: ${infra.infraStackName}
+      restApiId: ${infra.restApiId}
+      restApiRootResourceId: ${infra.restApiRootResourceId}
+      lambdaDefaultRole: ${infra.lambdaDefaultRole}

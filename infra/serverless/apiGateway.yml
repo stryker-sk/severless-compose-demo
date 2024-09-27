@@ -1,0 +1,16 @@
+Resources:
+  RestApi:
+    Type: AWS::ApiGateway::RestApi
+    Properties:
+      Description: API Gateway to be used in the serverless configuration
+      Name: api-${self:provider.stage}
+
+Outputs:
+  restApiId:
+    Value: !Ref RestApi
+    Export:
+      Name: !Sub ${AWS::StackName}-restApiId
+  restApiRootResourceId:
+    Value: !GetAtt RestApi.RootResourceId
+    Export:
+      Name: !Sub ${AWS::StackName}-restApiRootResourceId

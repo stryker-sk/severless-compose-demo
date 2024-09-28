@@ -4,12 +4,17 @@
   "description": "Serverless compose API service demo",
   "license": "UNLICENSED",
   "private": true,
+  "scripts": {
+    "package": "yarn install --prod --modules-folder ./layers/node_modules",
+    "buildNodeLayer": "yarn install && yarn package && bash build.sh"
+  },
   "dependencies": {
     "@types/aws-lambda": "^8.10.115",
     "axios": "^1.7.7",
     "redis": "^4.7.0"
   },
   "devDependencies": {
+    "serverless-plugin-scripts": "^1.0.2",
     "typescript": "^5.6.2"
   }
 }

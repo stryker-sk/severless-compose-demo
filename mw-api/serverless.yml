@@ -1,5 +1,9 @@
 service: mw-api
 
+plugins:
+  - serverless-plugin-scripts
+#  - serverless-domain-manager
+
 provider:
   name: aws
   runtime: nodejs20.x
@@ -13,19 +17,21 @@ provider:
   logRetentionInDays: 7
   layers:
     - !Ref ApiNodeModulesLambdaLayer
-  apiGateway:
-    restApiId: ${param:restApiId}
-    restApiRootResourceId: ${param:restApiRootResourceId}
+#  apiGateway:
+#    restApiId: ${param:restApiId}
+#    restApiRootResourceId: ${param:restApiRootResourceId}
+
+custom:
+  scripts:
+    hooks:
+      # This hook builds the React App. It sets the environment variables for
+      # the Chat and Auth APIs and then runs the build script.
+      "before:esbuild-package:package": cd mw-api && yarn buildNodeLayer
 
 layers:
   ApiNodeModules:
-    path: mw-api/node_modules
-    name: ${self:service}-node_modules
-    compatibleRuntimes:
-      - nodejs20.x
     package:
-      patterns:
-        - 'node_modules/**'
+      artifact: mw-api/layers/layer-node_modules.zip
 
 functions:
   - ${file(serverless/functions/helloWorld.yml)}

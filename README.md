@@ -4,11 +4,11 @@ This project was built to troubleshoot the lambda layer packaging with the serve
 
 Start by setting up:
 
-  $ yarn install
+    $ yarn install
 
 Attempt to package the project:
 
-  $ serverless package
+    $ serverless package
 
 The output will be this:
 
@@ -21,4 +21,16 @@ Serverless ϟ Compose
     No file matches include / exclude patterns
  
 Results: 1 services succeeded, 1 failed, 0 skipped, 2 total    Time: 10s
+```
+
+TODO:
+
+`package.json` workspaces
+
+```json
+{
+  "workspaces": [
+    "**"
+  ]
+}
 ```

@@ -9,5 +9,9 @@
   },
   "dependencies": {
     "serverless": "^4.4.3"
-  }
+  },
+  "workspaces": [
+    "infra",
+    "mw-api"
+  ]
 }

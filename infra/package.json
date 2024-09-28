@@ -1,0 +1,14 @@
+{
+  "name": "infra",
+  "version": "1.0.0",
+  "description": "Serverless compose API service demo",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "serverless-plugin-scripts": "^1.0.2"
+  }
+}
